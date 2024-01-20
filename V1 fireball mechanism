@@ -1,0 +1,51 @@
+#include <Servo.h>
+
+Servo servo1;
+Servo servo2;
+
+bool sendSignalToServo1 = true; // Starte mit Servo1
+
+void setup() {
+    servo1.attach(PIN_SERVO_1);
+    servo2.attach(PIN_SERVO_2);
+}
+
+// Funktion zum Überwachen des externen Commandos
+bool isCommandTrue() {
+    // Hier implementiere deine Logik zur Überwachung des Commandos
+    // Zum Beispiel könntest du hier einen Sensor auswerten oder auf ein externes Signal warten
+    // Diese Funktion sollte true zurückgeben, wenn das Commando aktiviert werden soll, andernfalls false
+    return // Deine Logik hier;
+}
+
+void loop() {
+    // Hier können andere Codes stehen, die zwischen den Servoaktionen ausgeführt werden
+
+    // Nachdem die anderen Codes ausgeführt wurden und es Zeit ist, das Servo-Signal zu senden
+    if (sendSignalToServo1) {
+        // Überprüfe das externe Commando
+        if (isCommandTrue()) {
+            // Schalte den ersten Servo ein
+            servo1.write(SERVO_ON_POSITION);
+            delay(1000); // Beispiel: Wartezeit für die Servoaktion
+            servo1.write(SERVO_OFF_POSITION); // Schalte den ersten Servo aus
+            sendSignalToServo1 = false; // Setze den Wert auf false für die nächste Runde
+        }
+    }
+
+    // Wartezeit zwischen den Servoaktionen (kann angepasst werden)
+    delay(1000);
+
+    if (!sendSignalToServo1) {
+        // Überprüfe das externe Commando
+        if (isCommandTrue()) {
+            // Schalte den zweiten Servo ein
+            servo2.write(SERVO_ON_POSITION);
+            delay(1000); // Beispiel: Wartezeit für die Servoaktion
+            servo2.write(SERVO_OFF_POSITION); // Schalte den zweiten Servo aus
+            sendSignalToServo1 = true; // Setze den Wert auf true für die nächste Runde
+        }
+    }
+
+    // Hier können weitere Codes stehen, die nach den Servoaktionen ausgeführt werden
+}
