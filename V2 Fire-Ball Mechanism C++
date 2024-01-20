@@ -1,0 +1,51 @@
+#include <Servo.h>
+#include <mavlink.h>
+
+Servo servo1;
+Servo servo2;
+
+// Variables pour stocker les coordonnées de déclenchement
+int triggerLatitude1 = 12345678; // Remplacez par la latitude souhaitée pour le premier déclenchement
+int triggerLongitude1 = 87654321; // Remplacez par la longitude souhaitée pour le premier déclenchement
+
+int triggerLatitude2 = 23456789; // Remplacez par la latitude souhaitée pour le deuxième déclenchement
+int triggerLongitude2 = 98765432; // Remplacez par la longitude souhaitée pour le deuxième déclenchement
+
+void setup() {
+  // Initialisation du code ici
+
+  // Attacher les servo-moteurs aux broches
+  servo1.attach(9);
+  servo2.attach(10);
+}
+
+void loop() {
+  // Obtenez les coordonnées de Pixhawk (hypothétique)
+  int currentLatitude = mavlink_latitude;  // Remplacez par la vraie variable MAVLink pour la latitude
+  int currentLongitude = mavlink_longitude;  // Remplacez par la vraie variable MAVLink pour la longitude
+
+  // Vérifiez si le premier déclenchement doit se produire
+  if (currentLatitude == triggerLatitude1 && currentLongitude == triggerLongitude1) {
+    // Larguer une boule avec le premier servo-moteur
+    largageBoule(servo1);
+
+    // Donnez le signal au deuxième servo de se préparer pour le prochain déclenchement
+    preparerPourProchainLargage(servo2);
+  }
+
+  // Vérifiez si le deuxième déclenchement doit se produire
+  if (currentLatitude == triggerLatitude2 && currentLongitude == triggerLongitude2) {
+    // Larguer une boule avec le deuxième servo-moteur
+    largageBoule(servo2);
+  }
+
+  // Ajoutez des délais ou d'autres conditions selon vos besoins
+}
+
+void largageBoule(Servo &servo) {
+  // Ajoutez votre logique de largage ici
+}
+
+void preparerPourProchainLargage(Servo &servo) {
+  // Ajoutez votre logique de préparation ici
+}
