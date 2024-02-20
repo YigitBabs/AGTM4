@@ -1,14 +1,16 @@
 import cv2
 import numpy as np
 
-# IP-Adresse und Port deines Handys über DroidCam
-phone_ip = 'DEINE_HANDY_IP'
-port = 'DEIN_PORT'  # Normalerweise 4747
+def gstreamer_pipeline(
+    capture_width=1920,
+    capture_height=1080,
+    display_width=960,
+    display_height=540,
+    framerate=30,
+    flip_method=0,
+):
 
-# URL für die Verbindung zur Kamera deines Handys über DroidCam
-url = f'http://{phone_ip}:{port}/video'
-
-cap = cv2.VideoCapture(0)
+# = cv2.VideoCapture(0)
 
 while(True):
     # Capture frame-by-frame
